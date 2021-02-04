@@ -1,0 +1,14 @@
+$body-color: red;
+
+body {
+  background-color: $body-color;
+}
+
+.myDiv {
+  color: white;
+  cursor: pointer;
+  
+  &:hover {
+    color: yellow;
+  }
+}
