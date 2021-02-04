@@ -1,14 +1,69 @@
-$body-color: red;
+$light-purple: #f3eef8;
+$purple: #9977c3;
+$gold: #c3b777;
+$green: #77c37a;
+
+html {
+  font-size: 20px;
+}
 
 body {
-  background-color: $body-color;
+  font-size: 1rem;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Signika Negative", sans-serif;
+  padding: unset;
+  margin: unset;
+}
+
+.projects-list {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.sample-project {
+  min-width: 300px;
+  border: 3px solid $purple;
+  border-radius: 5px;
+  .project-heading {
+    text-align: center;
+    .project-title {
+      padding: 6px;
+    }
+  }
+  div.divider {
+    background-color: $purple;
+    height: 6px;
+    width: 40px;
+    margin: auto;
+  }
+  ul {
+    list-style: "🦆";
+    li {
+      padding: 6px 12px;
+      &:hover {
+        list-style: "🐢";
+      }
+      &::marker {
+        font-size: 1.5rem;
+        color: $green;
+      }
+    }
+  }
 }
 
 .myDiv {
-  color: white;
+  color: $green;
   cursor: pointer;
-  
+
   &:hover {
-    color: yellow;
+    color: $gold;
   }
 }
