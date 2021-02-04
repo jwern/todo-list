@@ -1,8 +1,17 @@
+// Variables
 $light-purple: #f3eef8;
 $purple: #9977c3;
 $gold: #c3b777;
 $green: #77c37a;
 $page-padding: 24px;
+$box-radius: 5px;
+
+// Mixins
+@mixin nav-shadow {
+  box-shadow: 0px 3px 3px -3px rgba(153, 119, 195, 0.75);
+  -webkit-box-shadow: 0px 3px 3px -3px rgba(153, 119, 195, 0.75);
+  -moz-box-shadow: 0px 3px 3px -3px rgba(153, 119, 195, 0.75);
+}
 
 html {
   font-size: 20px;
@@ -32,14 +41,18 @@ h5 {
   background-color: $light-purple;
   position: sticky;
   top: 0;
+  @include nav-shadow;
   .create-project form {
     display: flex;
     align-items: center;
     input {
-      font-size: 1rem;
-      max-width: 260px;
       &[type="text"] {
+        max-width: 240px;
         border: 2px solid $purple;
+        border-right: none;
+        text-indent: 6px;
+        font-size: 1rem;
+        border-radius: $box-radius;
       }
       &[type="submit"] {
         all: initial;
@@ -50,6 +63,9 @@ h5 {
         height: calc(2em - 2px);
         width: 2rem;
         text-align: center;
+        border-radius: $box-radius;
+        @include nav-shadow;
+        margin-left: -2px;
       }
     }
   }
@@ -66,9 +82,10 @@ h5 {
 
 .project {
   min-width: 300px;
+  max-width: 600px;
   margin: 6px;
   border: 3px solid $purple;
-  border-radius: 5px;
+  border-radius: $box-radius;
   .project-heading {
     text-align: center;
     .project-title {
@@ -81,16 +98,38 @@ h5 {
     width: 40px;
     margin: auto;
   }
-  ul {
+  ul.project-items {
     list-style: "🥚";
-    li {
+    li.project-task {
       padding: 6px 12px;
-      &:hover {
-        list-style: "🐢";
+      cursor: pointer;
+      // &:hover {
+      //   list-style: "🐢";
+      // }
+      .details-complete {
+        width: max-content;
+        border: 2px solid $purple;
+        border-radius: $box-radius;
+        background-color: $light-purple;
+        padding: 6px;
+        display: inline-block;
+      }
+      &.checkedoff {
+        text-decoration: line-through;
+        .details-complete {
+          color: $green;
+          text-decoration: none;
+        }
       }
       &::marker {
         font-size: 1.5rem;
         color: $green;
+      }
+      ul.project-task-details {
+        list-style: none;
+        &.hidden {
+          display: none;
+        }
       }
     }
   }
