@@ -2,12 +2,14 @@ $light-purple: #f3eef8;
 $purple: #9977c3;
 $gold: #c3b777;
 $green: #77c37a;
+$page-padding: 24px;
 
 html {
   font-size: 20px;
 }
 
 body {
+  margin: unset;
   font-size: 1rem;
   font-family: "Source Sans Pro", sans-serif;
 }
@@ -22,14 +24,49 @@ h5 {
   margin: unset;
 }
 
-.projects-list {
+.page-nav {
   display: flex;
-  align-items: flex-start;
+  justify-content: space-between;
   flex-wrap: wrap;
+  padding: $page-padding;
+  background-color: $light-purple;
+  position: sticky;
+  top: 0;
+  .create-project form {
+    display: flex;
+    align-items: center;
+    input {
+      font-size: 1rem;
+      max-width: 260px;
+      &[type="text"] {
+        border: 2px solid $purple;
+      }
+      &[type="submit"] {
+        all: initial;
+        background-color: $green;
+        border: 2px solid $purple;
+        border-left: none;
+        cursor: pointer;
+        height: calc(2em - 2px);
+        width: 2rem;
+        text-align: center;
+      }
+    }
+  }
 }
 
-.sample-project {
+.projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $page-padding;
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.project {
   min-width: 300px;
+  margin: 6px;
   border: 3px solid $purple;
   border-radius: 5px;
   .project-heading {
@@ -45,7 +82,7 @@ h5 {
     margin: auto;
   }
   ul {
-    list-style: "🦆";
+    list-style: "🥚";
     li {
       padding: 6px 12px;
       &:hover {
