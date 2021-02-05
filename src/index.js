@@ -5,6 +5,19 @@ import { buildEmptyProject } from './buildProject'
 
 const projectTasks = document.querySelectorAll('.project-task');
 const projectTasksComplete = document.querySelectorAll('.details-complete');
+let projectsList = document.querySelector('.projects-list');
+
+const createProjectForm = document.getElementById('create-project-form');
+createProjectForm.addEventListener('submit', event => {
+  event.preventDefault();
+  let projectName = Object.fromEntries(new FormData(event.target).entries());
+  if (projectName.name) {
+    projectsList.append(buildEmptyProject(projectName.name));
+  } else {
+    alert("Please input a name");
+  }
+  event.target.reset();
+});
 
 // eventListener will need to be added every time a new task is created
 projectTasks.forEach(function(task) {
@@ -38,8 +51,9 @@ function markAsComplete() {
   };
 }
 
-let projectsList = document.querySelector('.projects-list');
-projectsList.append(buildEmptyProject());
+
+
+projectsList.append(buildEmptyProject("Default Project"));
 
 // TO DO:
 // Connect add task button

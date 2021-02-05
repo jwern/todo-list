@@ -1,7 +1,7 @@
-function buildEmptyProject() {
+function buildEmptyProject(projectName) {
   let projectContainer = createElementWithClass('div', 'project');
 
-  let projectHeading = buildProjectHeading("Default Project");
+  let projectHeading = buildProjectHeading(projectName);
   let projectItemsList = buildProjectItemsList();
   let projectAddTask = buildProjectTaskButton();
 
