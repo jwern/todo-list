@@ -1,6 +1,7 @@
 import './style.scss'
 // Uncomment to enable masonry layout
 // FlexMasonry.init('.projects-list');
+import { buildEmptyProject } from './buildProject'
 
 const projectTasks = document.querySelectorAll('.project-task');
 const projectTasksComplete = document.querySelectorAll('.details-complete');
@@ -36,3 +37,10 @@ function markAsComplete() {
     this.innerText = "Mark as finished";
   };
 }
+
+let projectsList = document.querySelector('.projects-list');
+projectsList.append(buildEmptyProject());
+
+// TO DO:
+// Connect add task button
+// Connect create project button
