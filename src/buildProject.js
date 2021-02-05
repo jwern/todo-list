@@ -1,6 +1,5 @@
 function buildEmptyProject() {
-  let projectContainer = document.createElement('div');
-  projectContainer.classList.add('project');
+  let projectContainer = createElementWithClass('div', 'project');
 
   let projectHeading = buildProjectHeading("Default Project");
   let projectItemsList = buildProjectItemsList();
@@ -14,15 +13,12 @@ function buildEmptyProject() {
 }
 
 function buildProjectHeading(name) {
-  let projectHeading = document.createElement('div');
-  projectHeading.classList.add('project-heading');
+  let projectHeading = createElementWithClass('div', 'project-heading');
 
-  let projectTitle = document.createElement('h2');
-  projectTitle.classList.add('project-title');
+  let projectTitle = createElementWithClass('h2', 'project-title');
   projectTitle.innerText = name;
 
-  let projectDivider = document.createElement('div');
-  projectDivider.classList.add('divider');
+  let projectDivider = createElementWithClass('div', 'divider');
 
   projectHeading.append(projectTitle);
   projectHeading.append(projectDivider);
@@ -31,11 +27,9 @@ function buildProjectHeading(name) {
 }
 
 function buildProjectTaskButton() {
-  let projectAddTask = document.createElement('div');
-  projectAddTask.classList.add('add-new-task');
+  let projectAddTask = createElementWithClass('div', 'add-new-task');
 
-  let projectAddTaskButton = document.createElement('div');
-  projectAddTaskButton.classList.add('new-task-button');
+  let projectAddTaskButton = createElementWithClass('div', 'new-task-button');
   projectAddTaskButton.innerText = "+ add task";
 
   projectAddTask.append(projectAddTaskButton);
@@ -44,10 +38,14 @@ function buildProjectTaskButton() {
 }
 
 function buildProjectItemsList() {
-  let projectItemsList = document.createElement('ul');
-  projectItemsList.classList.add('project-items');
+  return createElementWithClass('ul', 'project-items');
+}
 
-  return projectItemsList;
+function createElementWithClass(elementType, className) {
+  let newElement = document.createElement(elementType);
+  newElement.classList.add(className);
+
+  return newElement;
 }
 
 export { buildEmptyProject }
