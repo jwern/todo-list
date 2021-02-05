@@ -13,6 +13,16 @@ $box-radius: 5px;
   -moz-box-shadow: 0px 3px 3px -3px rgba(153, 119, 195, 0.75);
 }
 
+@mixin green-button {
+  height: 100%;
+  background-color: $green;
+  border: 2px solid $purple;
+  cursor: pointer;
+  text-align: center;
+  border-radius: $box-radius;
+  @include nav-shadow;
+}
+
 html {
   font-size: 20px;
 }
@@ -58,15 +68,9 @@ h5 {
       }
       &[type="submit"] {
         all: initial;
-        height: 100%;
+        @include green-button;
         width: 2rem;
-        background-color: $green;
-        border: 2px solid $purple;
         border-left: none;
-        cursor: pointer;
-        text-align: center;
-        border-radius: $box-radius;
-        @include nav-shadow;
         margin-left: -2px;
       }
     }
@@ -138,13 +142,14 @@ h5 {
       }
     }
   }
-}
-
-.myDiv {
-  color: $green;
-  cursor: pointer;
-
-  &:hover {
-    color: $gold;
+  .add-new-task-div {
+    padding: 6px 12px;
+    .new-task-button {
+      @include green-button;
+      width: max-content;
+      padding: 6px 12px;
+      margin: auto;
+      margin-bottom: $page-padding;
+    }
   }
 }
