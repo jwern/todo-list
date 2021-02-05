@@ -14,7 +14,7 @@ createProjectForm.addEventListener('submit', event => {
   if (projectName.name) {
     projectsList.append(buildEmptyProject(projectName.name));
   } else {
-    alert("Please input a name");
+    projectsList.append(buildEmptyProject("Unnamed Project"));
   }
   event.target.reset();
 });
@@ -46,11 +46,18 @@ function markAsComplete() {
 
   if (task.classList.contains('checkedoff')) {
     this.innerText = "Finished!";
+    // checkProjectCompletion(this);
   } else {
     this.innerText = "Mark as finished";
   };
 }
 
+// function checkProjectCompletion(task) {
+//   let parentProject = task.closest('.project');
+//   let projects = parentProject.querySelectorAll('.project-task');
+  
+//   // Note: this will probably actually use values from the project object
+// }
 
 
 projectsList.append(buildEmptyProject("Default Project"));

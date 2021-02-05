@@ -27,18 +27,32 @@ function buildProjectHeading(name) {
 }
 
 function buildProjectTaskButton() {
-  let projectAddTask = createElementWithClass('div', 'add-new-task');
+  let projectAddTaskDiv = createElementWithClass('div', 'add-new-task');
 
   let projectAddTaskButton = createElementWithClass('div', 'new-task-button');
   projectAddTaskButton.innerText = "+ add task";
+  projectAddTaskButton.addEventListener('click', createNewTask);
 
-  projectAddTask.append(projectAddTaskButton);
+  projectAddTaskDiv.append(projectAddTaskButton);
 
-  return projectAddTask;
+  return projectAddTaskDiv;
 }
 
 function buildProjectItemsList() {
   return createElementWithClass('ul', 'project-items');
+}
+
+function buildProjectItemsTask(taskName) {
+  let task = createElementWithClass('li', 'project-task');
+  task.innerText = taskName;
+  return task;
+}
+
+function createNewTask() {
+  let projectTaskList = this.closest('.project').querySelector('.project-items');
+
+  let task = buildProjectItemsTask("Test Task");
+  projectTaskList.append(task);
 }
 
 function createElementWithClass(elementType, className) {
