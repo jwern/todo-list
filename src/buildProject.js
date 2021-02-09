@@ -3,7 +3,7 @@ function buildEmptyProject(projectName) {
 
   let projectHeading = buildProjectHeading(projectName);
   let projectItemsList = buildProjectItemsList();
-  let projectAddTask = buildProjectTaskButton();
+  let projectAddTask = buildProjectAddTaskButton();
 
   projectContainer.append(projectHeading);
   projectContainer.append(projectItemsList);
@@ -26,7 +26,7 @@ function buildProjectHeading(name) {
   return projectHeading;
 }
 
-function buildProjectTaskButton() {
+function buildProjectAddTaskButton() {
   let projectAddTaskDiv = createElementWithClass('div', 'add-new-task');
 
   let projectAddTaskButton = createElementWithClass('div', 'new-task-button');
@@ -38,6 +38,13 @@ function buildProjectTaskButton() {
   return projectAddTaskDiv;
 }
 
+function buildProjectTaskFinishedButton() {
+  let projectTaskFinishedDiv = createElementWithClass('li', 'details-complete');
+  projectTaskFinishedDiv.classList.add('button');
+  projectTaskFinishedDiv.innerText = "Mark as finished";
+  return projectTaskFinishedDiv;
+}
+
 function buildProjectItemsList() {
   return createElementWithClass('ul', 'project-items');
 }
@@ -45,7 +52,36 @@ function buildProjectItemsList() {
 function buildProjectItemsTask(taskName) {
   let task = createElementWithClass('li', 'project-task');
   task.innerText = taskName;
+
+  let taskDescriptions = buildProjectTasksDescription();
+  task.append(taskDescriptions);
+  subMenuListener(task);
   return task;
+}
+
+function buildProjectTasksDescription() {
+  let taskDescriptions = createElementWithClass('ul', 'project-task-details');
+  taskDescriptions.classList.add('hidden');
+
+  let taskFinishedButton = buildProjectTaskFinishedButton();
+  taskDescriptions.append(taskFinishedButton);
+  return taskDescriptions;
+}
+
+function subMenuListener(button) {
+  button.addEventListener('click', function(e) {
+    e.stopPropagation();
+    openSubMenu(e.target);
+  }), true;
+}
+
+function openSubMenu(project) {
+  console.log(project);
+  let sub = project.querySelector('.project-task-details');
+  console.log(sub);
+  if (sub != null) {
+    sub.classList.toggle('hidden');
+  };
 }
 
 function createNewTask() {
@@ -62,4 +98,4 @@ function createElementWithClass(elementType, className) {
   return newElement;
 }
 
-export { buildEmptyProject }
+export { buildEmptyProject, openSubMenu }

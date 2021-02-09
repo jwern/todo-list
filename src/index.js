@@ -2,12 +2,11 @@ import './style.scss'
 // Uncomment to enable masonry layout
 // FlexMasonry.init('.projects-list');
 import { buildEmptyProject } from './buildProject'
+import { openSubMenu } from './buildProject'
 
-const projectTasks = document.querySelectorAll('.project-task');
-const projectTasksComplete = document.querySelectorAll('.details-complete');
 let projectsList = document.querySelector('.projects-list');
-
 const createProjectForm = document.getElementById('create-project-form');
+
 createProjectForm.addEventListener('submit', event => {
   event.preventDefault();
   let projectName = Object.fromEntries(new FormData(event.target).entries());
@@ -18,6 +17,9 @@ createProjectForm.addEventListener('submit', event => {
   }
   event.target.reset();
 });
+
+const projectTasks = document.querySelectorAll('.project-task');
+const projectTasksComplete = document.querySelectorAll('.details-complete');
 
 // eventListener will need to be added every time a new task is created
 projectTasks.forEach(function(task) {
@@ -32,12 +34,12 @@ projectTasksComplete.forEach(function(task) {
 });
 
 // add to each new task
-function openSubMenu(project) {
-  let sub = project.querySelector('.project-task-details');
-  if (sub != null) {
-    sub.classList.toggle('hidden');
-  };
-}
+// function openSubMenu(project) {
+//   let sub = project.querySelector('.project-task-details');
+//   if (sub != null) {
+//     sub.classList.toggle('hidden');
+//   };
+// }
 
 // add to each new task
 function markAsComplete() {
