@@ -45,10 +45,10 @@ class Project {
 let projectsList = [];
 let projectId = 1;
 
-projectsList.push(new Project("First Project"));
+projectsList.push(new Project(projectData.name));
 projectsList.push(new Project("Make a Project"));
-projectsList[0].addTask("Try making a task", "Just make a task");
-projectsList[0].addTask("Here's a second task", "We made a second task");
+projectsList[0].addTask(projectData.tasks[0].name, projectData.tasks[0].description);
+projectsList[0].addTask(projectData.tasks[1].name, projectData.tasks[1].description);
 console.log(projectsList);
 // let myFirstProject = new Project("First Project");
 // console.log(myFirstProject);
