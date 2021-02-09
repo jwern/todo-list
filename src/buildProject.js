@@ -1,3 +1,5 @@
+import { projectData } from './testData'
+
 function buildEmptyProject(projectName) {
   let projectContainer = createElementWithClass('div', 'project');
 
@@ -74,11 +76,22 @@ function buildTasksDescription() {
 
   let taskFinishedButton = buildTaskFinishedButton();
   let editTaskButton = buildEditTaskButton();
-
   taskDescriptions.append(taskFinishedButton);
   taskDescriptions.append(editTaskButton);
+
+  // appendDescriptions(taskDescriptions, projectData);
   return taskDescriptions;
 }
+
+// function appendDescriptions(descriptionsUl, data) {
+//   for (let info in data) {
+//     for (let details in info) {
+//       let newLi = createElementWithClass('li', 'details');
+//       newLi.innerText = data[info][details];
+//       descriptionsUl.append(newLi);
+//     }
+//   }
+// }
 
 function subMenuListener(button) {
   button.addEventListener('click', function(e) {

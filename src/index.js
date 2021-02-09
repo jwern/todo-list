@@ -1,7 +1,8 @@
 import './style.scss'
+import { buildEmptyProject, openSubMenu, markAsComplete } from './buildProject'
 // Uncomment to enable masonry layout
 // FlexMasonry.init('.projects-list');
-import { buildEmptyProject, openSubMenu, markAsComplete } from './buildProject'
+
 
 let projectsList = document.querySelector('.projects-list');
 const createProjectForm = document.getElementById('create-project-form');
