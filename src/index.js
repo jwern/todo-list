@@ -1,8 +1,7 @@
 import './style.scss'
 // Uncomment to enable masonry layout
 // FlexMasonry.init('.projects-list');
-import { buildEmptyProject } from './buildProject'
-import { openSubMenu } from './buildProject'
+import { buildEmptyProject, openSubMenu, markAsComplete } from './buildProject'
 
 let projectsList = document.querySelector('.projects-list');
 const createProjectForm = document.getElementById('create-project-form');
@@ -32,27 +31,6 @@ projectTasks.forEach(function(task) {
 projectTasksComplete.forEach(function(task) {
   task.addEventListener('click', markAsComplete);
 });
-
-// add to each new task
-// function openSubMenu(project) {
-//   let sub = project.querySelector('.project-task-details');
-//   if (sub != null) {
-//     sub.classList.toggle('hidden');
-//   };
-// }
-
-// add to each new task
-function markAsComplete() {
-  let task = this.closest('.project-task');
-  task.classList.toggle('checkedoff');
-
-  if (task.classList.contains('checkedoff')) {
-    this.innerText = "Finished!";
-    // checkProjectCompletion(this);
-  } else {
-    this.innerText = "Mark as finished";
-  };
-}
 
 // function checkProjectCompletion(task) {
 //   let parentProject = task.closest('.project');

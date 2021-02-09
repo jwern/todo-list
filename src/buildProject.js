@@ -1,9 +1,9 @@
 function buildEmptyProject(projectName) {
   let projectContainer = createElementWithClass('div', 'project');
 
-  let projectHeading = buildProjectHeading(projectName);
-  let projectItemsList = buildProjectItemsList();
-  let projectAddTask = buildProjectAddTaskButton();
+  let projectHeading = buildHeading(projectName);
+  let projectItemsList = buildItemsList();
+  let projectAddTask = buildAddTaskButton();
 
   projectContainer.append(projectHeading);
   projectContainer.append(projectItemsList);
@@ -12,7 +12,7 @@ function buildEmptyProject(projectName) {
   return projectContainer;
 }
 
-function buildProjectHeading(name) {
+function buildHeading(name) {
   let projectHeading = createElementWithClass('div', 'project-heading');
 
   let projectTitle = createElementWithClass('h2', 'project-title');
@@ -26,7 +26,7 @@ function buildProjectHeading(name) {
   return projectHeading;
 }
 
-function buildProjectAddTaskButton() {
+function buildAddTaskButton() {
   let projectAddTaskDiv = createElementWithClass('div', 'add-new-task');
 
   let projectAddTaskButton = createElementWithClass('div', 'new-task-button');
@@ -38,33 +38,45 @@ function buildProjectAddTaskButton() {
   return projectAddTaskDiv;
 }
 
-function buildProjectTaskFinishedButton() {
+function buildTaskFinishedButton() {
   let projectTaskFinishedDiv = createElementWithClass('li', 'details-complete');
   projectTaskFinishedDiv.classList.add('button');
   projectTaskFinishedDiv.innerText = "Mark as finished";
+  markCompleteListener(projectTaskFinishedDiv);
   return projectTaskFinishedDiv;
 }
 
-function buildProjectItemsList() {
+function buildEditTaskButton() {
+  let editTaskButtonDiv = createElementWithClass('li', 'details-edit');
+  editTaskButtonDiv.classList.add('button');
+  editTaskButtonDiv.innerText = "Edit task";
+  editTaskListener(editTaskButtonDiv);
+  return editTaskButtonDiv;
+}
+
+function buildItemsList() {
   return createElementWithClass('ul', 'project-items');
 }
 
-function buildProjectItemsTask(taskName) {
+function buildItemsTask(taskName) {
   let task = createElementWithClass('li', 'project-task');
   task.innerText = taskName;
 
-  let taskDescriptions = buildProjectTasksDescription();
+  let taskDescriptions = buildTasksDescription();
   task.append(taskDescriptions);
   subMenuListener(task);
   return task;
 }
 
-function buildProjectTasksDescription() {
+function buildTasksDescription() {
   let taskDescriptions = createElementWithClass('ul', 'project-task-details');
   taskDescriptions.classList.add('hidden');
 
-  let taskFinishedButton = buildProjectTaskFinishedButton();
+  let taskFinishedButton = buildTaskFinishedButton();
+  let editTaskButton = buildEditTaskButton();
+
   taskDescriptions.append(taskFinishedButton);
+  taskDescriptions.append(editTaskButton);
   return taskDescriptions;
 }
 
@@ -76,18 +88,41 @@ function subMenuListener(button) {
 }
 
 function openSubMenu(project) {
-  console.log(project);
   let sub = project.querySelector('.project-task-details');
-  console.log(sub);
   if (sub != null) {
     sub.classList.toggle('hidden');
   };
 }
 
+function markCompleteListener(button) {
+  button.addEventListener('click', markAsComplete);
+}
+
+function markAsComplete() {
+  let task = this.closest('.project-task');
+  task.classList.toggle('checkedoff');
+
+  if (task.classList.contains('checkedoff')) {
+    this.innerText = "Finished!";
+    // checkProjectCompletion(this);
+  } else {
+    this.innerText = "Mark as finished";
+  };
+}
+
+function editTaskListener(button) {
+  button.addEventListener('click', editTask);
+}
+
+function editTask() {
+  let task = this.closest('.project-task');
+  console.log(this);
+}
+
 function createNewTask() {
   let projectTaskList = this.closest('.project').querySelector('.project-items');
 
-  let task = buildProjectItemsTask("Test Task");
+  let task = buildItemsTask("Test Task");
   projectTaskList.append(task);
 }
 
@@ -98,4 +133,4 @@ function createElementWithClass(elementType, className) {
   return newElement;
 }
 
-export { buildEmptyProject, openSubMenu }
+export { buildEmptyProject, openSubMenu, markAsComplete }
