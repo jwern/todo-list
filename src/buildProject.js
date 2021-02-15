@@ -60,26 +60,32 @@ function buildItemsList() {
   return createElementWithClass('ul', 'project-items');
 }
 
-function buildItemsTask(taskName) {
+function buildItemsTask(data) {
   let task = createElementWithClass('li', 'project-task');
-  task.innerText = taskName;
+  task.innerText = data["task-name"];
 
-  let taskDescriptions = buildTasksDescription();
+  let taskDescriptions = buildTasksDescription(data);
   task.append(taskDescriptions);
   subMenuListener(task);
   return task;
 }
 
-function buildTasksDescription() {
+function buildTasksDescription(data) {
   let taskDescriptions = createElementWithClass('ul', 'project-task-details');
   taskDescriptions.classList.add('hidden');
 
   let taskFinishedButton = buildTaskFinishedButton();
   let editTaskButton = buildEditTaskButton();
+
   taskDescriptions.append(taskFinishedButton);
   taskDescriptions.append(editTaskButton);
 
-  // appendDescriptions(taskDescriptions, projectData);
+  for (let info in data) {
+    let infoLi = createElementWithClass('li', 'details');
+    infoLi.innerText = data[info];
+    taskDescriptions.append(infoLi);
+  }
+
   return taskDescriptions;
 }
 
@@ -129,14 +135,65 @@ function editTaskListener(button) {
 
 function editTask() {
   let task = this.closest('.project-task');
-  console.log(this);
+  console.log(task);
 }
 
 function createNewTask() {
   let projectTaskList = this.closest('.project').querySelector('.project-items');
 
-  let task = buildItemsTask("Test Task");
-  projectTaskList.append(task);
+  let taskForm = buildItemTaskForm();
+  projectTaskList.append(taskForm);
+
+  taskForm.addEventListener('submit', event => {
+    event.preventDefault();
+    let taskData = Object.fromEntries(new FormData(event.target).entries());
+    let task = buildItemsTask(taskData);
+    event.target.reset();
+    projectTaskList.append(task);
+    projectTaskList.removeChild(taskForm);
+  });
+
+  // let task = buildItemsTask();
+  // projectTaskList.append(task);
+}
+
+function buildItemTaskForm() {
+  let taskForm = createElementWithClass('form', 'task-form');
+
+  let taskNameAttributes = [
+    { input: 'type', value: 'text' },
+    { input: 'name', value: 'task-name' },
+    { input: 'placeholder', value: 'Task Name' },
+  ];
+  let taskNameInput = createInputElement(taskNameAttributes);
+  
+  let taskDueDateAttributes = [
+    { input: 'type', value: 'text' },
+    { input: 'name', value: 'task-due' },
+    { input: 'placeholder', value: 'Due Date' },
+  ];
+  let taskDueDate = createInputElement(taskDueDateAttributes);
+
+  let taskNameSubmitAttributes = [
+    { input: 'type', value: 'submit' },
+    { input: 'value', value: 'Add task' },
+  ];
+  let taskNameSubmit = createInputElement(taskNameSubmitAttributes);
+  
+  taskForm.append(taskNameInput);
+  taskForm.append(taskDueDate);
+  taskForm.append(taskNameSubmit);
+
+  return taskForm;
+}
+
+function createInputElement(attributes) {
+  let inputElement = document.createElement('input');
+  for (let pair of attributes) {
+    inputElement.setAttribute(pair.input, pair.value);
+  }
+
+  return inputElement;
 }
 
 function createElementWithClass(elementType, className) {
