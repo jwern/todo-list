@@ -1,4 +1,5 @@
 import { projectData } from './testData'
+import * as addTaskFormElements from './addTaskFormElements'
 
 function buildEmptyProject(projectName) {
   let projectContainer = createElementWithClass('div', 'project');
@@ -62,7 +63,7 @@ function buildItemsList() {
 
 function buildItemsTask(data) {
   let task = createElementWithClass('li', 'project-task');
-  task.innerText = data["task-name"];
+  task.innerText = data["name"];
 
   let taskDescriptions = buildTasksDescription(data);
   task.append(taskDescriptions);
@@ -81,9 +82,12 @@ function buildTasksDescription(data) {
   taskDescriptions.append(editTaskButton);
 
   for (let info in data) {
-    let infoLi = createElementWithClass('li', 'details');
-    infoLi.innerText = data[info];
-    taskDescriptions.append(infoLi);
+    if (info != "name") {
+      let infoLi = createElementWithClass('li', 'details');
+      let infoCapitalized = info[0].toUpperCase().concat(info.slice(1));
+      infoLi.innerText = `${infoCapitalized}: ${data[info]}`;
+      taskDescriptions.append(infoLi);
+    }
   }
 
   return taskDescriptions;
@@ -160,37 +164,31 @@ function createNewTask() {
 function buildItemTaskForm() {
   let taskForm = createElementWithClass('form', 'task-form');
 
-  let taskNameAttributes = [
-    { input: 'type', value: 'text' },
-    { input: 'name', value: 'task-name' },
-    { input: 'placeholder', value: 'Task Name' },
-  ];
-  let taskNameInput = createInputElement(taskNameAttributes);
+  let taskNameInput = createInputElement(addTaskFormElements.taskNameAttributes);
+  let taskDueDate = createInputElement(addTaskFormElements.taskDueDateAttributes);
+  let taskDescription = createInputElement(addTaskFormElements.taskDescriptionAttributes);
+  let taskPriority = createInputElement(addTaskFormElements.taskPriorityAttributes);
+  let taskNameSubmit = createInputElement(addTaskFormElements.taskNameSubmitAttributes);
   
-  let taskDueDateAttributes = [
-    { input: 'type', value: 'text' },
-    { input: 'name', value: 'task-due' },
-    { input: 'placeholder', value: 'Due Date' },
-  ];
-  let taskDueDate = createInputElement(taskDueDateAttributes);
+  let formElements = [
+    taskNameInput,
+    taskDueDate,
+    taskDescription,
+    taskPriority,
+    taskNameSubmit
+  ]
 
-  let taskNameSubmitAttributes = [
-    { input: 'type', value: 'submit' },
-    { input: 'value', value: 'Add task' },
-  ];
-  let taskNameSubmit = createInputElement(taskNameSubmitAttributes);
-  
-  taskForm.append(taskNameInput);
-  taskForm.append(taskDueDate);
-  taskForm.append(taskNameSubmit);
+  for (let element of formElements) {
+    taskForm.append(element);
+  }
 
   return taskForm;
 }
 
 function createInputElement(attributes) {
   let inputElement = document.createElement('input');
-  for (let pair of attributes) {
-    inputElement.setAttribute(pair.input, pair.value);
+  for (let pair in attributes) {
+    inputElement.setAttribute(pair, attributes[pair]);
   }
 
   return inputElement;
