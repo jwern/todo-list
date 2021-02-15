@@ -1,5 +1,6 @@
 import './style.scss'
 import { buildEmptyProject, openSubMenu, markAsComplete } from './buildProject'
+import { Project } from './testData.js'
 // Uncomment to enable masonry layout
 // FlexMasonry.init('.projects-list');
 
@@ -11,9 +12,9 @@ createProjectForm.addEventListener('submit', event => {
   event.preventDefault();
   let projectName = Object.fromEntries(new FormData(event.target).entries());
   if (projectName.name) {
-    projectsList.append(buildEmptyProject(projectName.name));
+    projectsList.append(buildEmptyProject(new Project(projectName.name)));
   } else {
-    projectsList.append(buildEmptyProject("Unnamed Project"));
+    projectsList.append(buildEmptyProject(new Project("Unnamed Project")));
   }
   event.target.reset();
 });
@@ -41,7 +42,7 @@ projectTasksComplete.forEach(function(task) {
 // }
 
 
-projectsList.append(buildEmptyProject("Default Project"));
+// projectsList.append(buildEmptyProject("Default Project"));
 
 // TO DO:
 // Connect add task button

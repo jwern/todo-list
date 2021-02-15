@@ -17,9 +17,11 @@ const projectData = {
 }
 
 class Task {
-  constructor(name, description, taskId) {
-    this.name = name;
-    this.description = description;
+  constructor(task, taskId) {
+    this.name = task.name;
+    this.due = task.due;
+    this.description = task.description;
+    this.priority = task.priority;
     this.id = taskId;
   }
 }
@@ -31,9 +33,9 @@ class Project {
     this.id = Project.assignId();
   }
 
-  addTask(taskName, taskDescription) {
+  addTask(taskObject) {
     let taskId = this.tasks.length + 1;
-    let task = new Task(taskName, taskDescription, taskId);
+    let task = new Task(taskObject, taskId);
     this.tasks.push(task);
   }
 
@@ -45,11 +47,12 @@ class Project {
 let projectsList = [];
 let projectId = 1;
 
-projectsList.push(new Project(projectData.name));
-projectsList.push(new Project("Make a Project"));
-projectsList[0].addTask(projectData.tasks[0].name, projectData.tasks[0].description);
-projectsList[0].addTask(projectData.tasks[1].name, projectData.tasks[1].description);
+// projectsList.push(new Project(projectData.name));
+// projectsList.push(new Project("Make a Project"));
+// projectsList[0].addTask(projectData.tasks[0]);
+// projectsList[0].addTask(projectData.tasks[1]);
 // console.log(projectsList);
+// console.log(projectsList[0].tasks[0]);
 // let myFirstProject = new Project("First Project");
 // console.log(myFirstProject);
 // let myProject = new Project("Make a Project");
@@ -57,4 +60,4 @@ projectsList[0].addTask(projectData.tasks[1].name, projectData.tasks[1].descript
 // myProject.addTask("Here's a second task", "We made a second task");
 // console.log(myProject);
 
-export { projectData }
+export { Project, projectsList }

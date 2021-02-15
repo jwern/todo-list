@@ -1,10 +1,13 @@
-import { projectData } from './testData'
 import * as addTaskFormElements from './addTaskFormElements'
+import { projectsList } from './testData.js'
 
-function buildEmptyProject(projectName) {
+function buildEmptyProject(project) {
+  projectsList.push(project); // DEALING WITH PROJECT DATA ARRAY, NOT DOM
+
   let projectContainer = createElementWithClass('div', 'project');
+  projectContainer.setAttribute('data-id', project.id);
 
-  let projectHeading = buildHeading(projectName);
+  let projectHeading = buildHeading(project.name);
   let projectItemsList = buildItemsList();
   let projectAddTask = buildAddTaskButton();
 
@@ -143,22 +146,27 @@ function editTask() {
 }
 
 function createNewTask() {
-  let projectTaskList = this.closest('.project').querySelector('.project-items');
+  let project = this.closest('.project');
+  let projectInArray = projectsList.find(proj => proj.id == project.getAttribute('data-id')); // DEALING WITH PROJECT DATA ARRAY, NOT DOM
+  
+  let projectTaskList = project.querySelector('.project-items');
 
   let taskForm = buildItemTaskForm();
   projectTaskList.append(taskForm);
 
   taskForm.addEventListener('submit', event => {
-    event.preventDefault();
-    let taskData = Object.fromEntries(new FormData(event.target).entries());
-    let task = buildItemsTask(taskData);
-    event.target.reset();
-    projectTaskList.append(task);
-    projectTaskList.removeChild(taskForm);
+    if (event.submitter.value === "Cancel") {
+      event.preventDefault();
+      projectTaskList.removeChild(taskForm);
+    } else {
+      event.preventDefault();
+      let taskData = Object.fromEntries(new FormData(event.target).entries());
+      projectInArray.addTask(taskData); // DEALING WITH PROJECT DATA ARRAY, NOT DOM
+      let task = buildItemsTask(taskData);
+      projectTaskList.append(task);
+      projectTaskList.removeChild(taskForm);
+    }
   });
-
-  // let task = buildItemsTask();
-  // projectTaskList.append(task);
 }
 
 function buildItemTaskForm() {
@@ -169,13 +177,15 @@ function buildItemTaskForm() {
   let taskDescription = createInputElement(addTaskFormElements.taskDescriptionAttributes);
   let taskPriority = createInputElement(addTaskFormElements.taskPriorityAttributes);
   let taskNameSubmit = createInputElement(addTaskFormElements.taskNameSubmitAttributes);
+  let taskCancel = createInputElement(addTaskFormElements.taskCancelAttributes);
   
   let formElements = [
     taskNameInput,
     taskDueDate,
     taskDescription,
     taskPriority,
-    taskNameSubmit
+    taskNameSubmit,
+    taskCancel
   ]
 
   for (let element of formElements) {

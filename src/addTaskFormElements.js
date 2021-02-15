@@ -27,10 +27,16 @@ const taskNameSubmitAttributes = {
   value: 'Add Task',
 }
 
+const taskCancelAttributes = {
+  type: 'submit',
+  value: 'Cancel',
+}
+
 export { 
   taskNameAttributes, 
   taskDueDateAttributes, 
   taskDescriptionAttributes, 
   taskPriorityAttributes, 
-  taskNameSubmitAttributes 
+  taskNameSubmitAttributes,
+  taskCancelAttributes
 }
