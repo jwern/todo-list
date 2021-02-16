@@ -1,5 +1,5 @@
 import * as addTaskFormElements from './addTaskFormElements'
-import { addTaskToProjectData, removeTaskFromProject } from './storeProject'
+import { addTaskToProjectData, removeTaskFromProject, updateTaskStatus } from './storeProject'
 
 function buildEmptyProject(project) {
   let projectContainer = createElementWithClass('div', 'project');
@@ -127,9 +127,11 @@ function markAsComplete() {
 
   if (task.classList.contains('checkedoff')) {
     this.innerText = "Finished!";
+    updateTaskStatus(task, true);
     // checkProjectCompletion(this);
   } else {
     this.innerText = "Mark as finished";
+    updateTaskStatus(task, false);
   };
 }
 

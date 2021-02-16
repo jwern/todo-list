@@ -14,13 +14,24 @@ function addTaskToProjectData(project, task) {
 function removeTaskFromProject(task) {
   let project = task.closest('.project');
   let projectInArray = findProjectInProjectsList(project);
-  let taskId = task.getAttribute('data-id');
+  let taskId = findTaskIDInDom(task);
   
   projectInArray.removeTask(taskId);
+}
+
+function updateTaskStatus(task, status) {
+  let projectInArray = findProjectInProjectsList(task.closest('.project'));
+  let taskId = findTaskIDInDom(task);
+
+  projectInArray.updateTaskStatus(taskId, status);
 }
 
 function findProjectInProjectsList(project) {
   return projectsList.find(proj => proj.id == project.getAttribute('data-id'));
 }
 
-export { addProjectToData, addTaskToProjectData, removeTaskFromProject }
+function findTaskIDInDom(task) {
+  return task.getAttribute('data-id');
+}
+
+export { addProjectToData, addTaskToProjectData, removeTaskFromProject, updateTaskStatus }
