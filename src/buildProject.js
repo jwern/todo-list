@@ -1,9 +1,7 @@
 import * as addTaskFormElements from './addTaskFormElements'
-import { projectsList } from './testData.js'
+import { addTaskToProjectData } from './storeProject'
 
 function buildEmptyProject(project) {
-  projectsList.push(project); // DEALING WITH PROJECT DATA ARRAY, NOT DOM
-
   let projectContainer = createElementWithClass('div', 'project');
   projectContainer.setAttribute('data-id', project.id);
 
@@ -16,6 +14,11 @@ function buildEmptyProject(project) {
   projectContainer.append(projectAddTask);
 
   return projectContainer;
+}
+
+function addProjectToPage(project) {
+  let projectsContainer = document.querySelector('.projects-list');
+  projectsContainer.append(buildEmptyProject(project));
 }
 
 function buildHeading(name) {
@@ -49,6 +52,7 @@ function buildTaskFinishedButton() {
   projectTaskFinishedDiv.classList.add('button');
   projectTaskFinishedDiv.innerText = "Mark as finished";
   markCompleteListener(projectTaskFinishedDiv);
+
   return projectTaskFinishedDiv;
 }
 
@@ -57,6 +61,7 @@ function buildEditTaskButton() {
   editTaskButtonDiv.classList.add('button');
   editTaskButtonDiv.innerText = "Edit task";
   editTaskListener(editTaskButtonDiv);
+
   return editTaskButtonDiv;
 }
 
@@ -71,6 +76,7 @@ function buildItemsTask(data) {
   let taskDescriptions = buildTasksDescription(data);
   task.append(taskDescriptions);
   subMenuListener(task);
+
   return task;
 }
 
@@ -95,16 +101,6 @@ function buildTasksDescription(data) {
 
   return taskDescriptions;
 }
-
-// function appendDescriptions(descriptionsUl, data) {
-//   for (let info in data) {
-//     for (let details in info) {
-//       let newLi = createElementWithClass('li', 'details');
-//       newLi.innerText = data[info][details];
-//       descriptionsUl.append(newLi);
-//     }
-//   }
-// }
 
 function subMenuListener(button) {
   button.addEventListener('click', function(e) {
@@ -147,26 +143,27 @@ function editTask() {
 
 function createNewTask() {
   let project = this.closest('.project');
-  let projectInArray = projectsList.find(proj => proj.id == project.getAttribute('data-id')); // DEALING WITH PROJECT DATA ARRAY, NOT DOM
-  
   let projectTaskList = project.querySelector('.project-items');
 
   let taskForm = buildItemTaskForm();
   projectTaskList.append(taskForm);
 
   taskForm.addEventListener('submit', event => {
+    event.preventDefault();
     if (event.submitter.value === "Cancel") {
-      event.preventDefault();
       projectTaskList.removeChild(taskForm);
     } else {
-      event.preventDefault();
       let taskData = Object.fromEntries(new FormData(event.target).entries());
-      projectInArray.addTask(taskData); // DEALING WITH PROJECT DATA ARRAY, NOT DOM
-      let task = buildItemsTask(taskData);
-      projectTaskList.append(task);
+      addTaskToProject(projectTaskList, taskData);
+      addTaskToProjectData(project, taskData);
       projectTaskList.removeChild(taskForm);
     }
   });
+}
+
+function addTaskToProject(taskList, newTask) {
+  let task = buildItemsTask(newTask);
+  taskList.append(task);
 }
 
 function buildItemTaskForm() {
@@ -211,4 +208,4 @@ function createElementWithClass(elementType, className) {
   return newElement;
 }
 
-export { buildEmptyProject, openSubMenu, markAsComplete }
+export { buildEmptyProject, addProjectToPage, openSubMenu, markAsComplete }
