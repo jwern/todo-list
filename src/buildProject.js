@@ -1,5 +1,5 @@
 import * as addTaskFormElements from './addTaskFormElements'
-import { addTaskToProjectData } from './storeProject'
+import { addTaskToProjectData, removeTaskFromProject } from './storeProject'
 
 function buildEmptyProject(project) {
   let projectContainer = createElementWithClass('div', 'project');
@@ -56,13 +56,13 @@ function buildTaskFinishedButton() {
   return projectTaskFinishedDiv;
 }
 
-function buildEditTaskButton() {
-  let editTaskButtonDiv = createElementWithClass('li', 'details-edit');
-  editTaskButtonDiv.classList.add('button');
-  editTaskButtonDiv.innerText = "Edit task";
-  editTaskListener(editTaskButtonDiv);
+function buildDeleteTaskButton() {
+  let deleteTaskButtonDiv = createElementWithClass('li', 'details-delete');
+  deleteTaskButtonDiv.classList.add('button');
+  deleteTaskButtonDiv.innerText = "Delete task";
+  deleteTaskListener(deleteTaskButtonDiv);
 
-  return editTaskButtonDiv;
+  return deleteTaskButtonDiv;
 }
 
 function buildItemsList() {
@@ -71,7 +71,8 @@ function buildItemsList() {
 
 function buildItemsTask(data) {
   let task = createElementWithClass('li', 'project-task');
-  task.innerText = data["name"];
+  task.setAttribute('data-id', data.id);
+  task.innerText = data.name;
 
   let taskDescriptions = buildTasksDescription(data);
   task.append(taskDescriptions);
@@ -85,13 +86,13 @@ function buildTasksDescription(data) {
   taskDescriptions.classList.add('hidden');
 
   let taskFinishedButton = buildTaskFinishedButton();
-  let editTaskButton = buildEditTaskButton();
+  let deleteTaskButton = buildDeleteTaskButton();
 
   taskDescriptions.append(taskFinishedButton);
-  taskDescriptions.append(editTaskButton);
+  taskDescriptions.append(deleteTaskButton);
 
   for (let info in data) {
-    if (info != "name") {
+    if (info != "name" && info != "id") {
       let infoLi = createElementWithClass('li', 'details');
       let infoCapitalized = info[0].toUpperCase().concat(info.slice(1));
       infoLi.innerText = `${infoCapitalized}: ${data[info]}`;
@@ -132,13 +133,17 @@ function markAsComplete() {
   };
 }
 
-function editTaskListener(button) {
-  button.addEventListener('click', editTask);
+function deleteTaskListener(button) {
+  button.addEventListener('click', deleteTask);
 }
 
-function editTask() {
+function deleteTask() {
   let task = this.closest('.project-task');
-  console.log(task);
+  let taskList = task.closest('.project-items');
+  if (confirm("Delete this task?")) {
+    removeTaskFromProject(task);
+    taskList.removeChild(task);
+  }
 }
 
 function createNewTask() {
@@ -153,9 +158,9 @@ function createNewTask() {
     if (event.submitter.value === "Cancel") {
       projectTaskList.removeChild(taskForm);
     } else {
-      let taskData = Object.fromEntries(new FormData(event.target).entries());
-      addTaskToProject(projectTaskList, taskData);
-      addTaskToProjectData(project, taskData);
+      let taskData = Object.fromEntries(new FormData(event.target).entries());  
+      let taskObject = addTaskToProjectData(project, taskData);
+      addTaskToProject(projectTaskList, taskObject);
       projectTaskList.removeChild(taskForm);
     }
   });

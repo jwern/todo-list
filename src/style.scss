@@ -123,7 +123,7 @@ h5 {
       .details-complete {
         @include task-button($purple, $light-purple);
       }
-      .details-edit {
+      .details-delete {
         @include task-button($green, $light-purple);
       }
       &.checkedoff {

@@ -39,6 +39,11 @@ class Project {
     this.tasks.push(task);
   }
 
+  removeTask(taskId) {
+    let taskToRemove = this.tasks.indexOf(this.tasks.find(task => task.id == taskId));
+    this.tasks.splice(taskToRemove, 1);
+  }
+
   static assignId() {
     return projectId++;
   }
