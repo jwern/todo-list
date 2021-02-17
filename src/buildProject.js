@@ -92,7 +92,7 @@ function buildTasksDescription(data) {
   taskDescriptions.append(deleteTaskButton);
 
   for (let info in data) {
-    if (info != "name" && info != "id") {
+    if (info != "name" && info != "id" && info != "completed" ) {
       let infoLi = createElementWithClass('li', 'details');
       let infoCapitalized = info[0].toUpperCase().concat(info.slice(1));
       infoLi.innerText = `${infoCapitalized}: ${data[info]}`;
