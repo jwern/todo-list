@@ -1,5 +1,6 @@
 import * as addTaskFormElements from './addTaskFormElements'
 import { addTaskToProjectData, removeTaskFromProject, updateTaskStatus } from './storeProject'
+import { addTaskButton, deleteProjectButton, taskFinishedButton, deleteTaskButton } from './projectButtons'
 
 function buildEmptyProject(project) {
   let projectContainer = createElementWithClass('div', 'project');
@@ -7,11 +8,13 @@ function buildEmptyProject(project) {
 
   let projectHeading = buildHeading(project.name);
   let projectItemsList = buildItemsList();
-  let projectAddTask = buildAddTaskButton();
+  let projectAddTask = buildProjectButton(addTaskButton, createNewTask);
+  let projetDeleteProject = buildProjectButton(deleteProjectButton, deleteProject);
 
   projectContainer.append(projectHeading);
   projectContainer.append(projectItemsList);
   projectContainer.append(projectAddTask);
+  projectContainer.append(projetDeleteProject);
 
   return projectContainer;
 }
@@ -35,34 +38,30 @@ function buildHeading(name) {
   return projectHeading;
 }
 
-function buildAddTaskButton() {
-  let projectAddTaskDiv = createElementWithClass('div', 'add-new-task');
+function buildProjectButton(buttonObject, buttonEvent) {
+  let buttonContainer = createElementWithClass('div', buttonObject["divClass"]);
 
-  let projectAddTaskButton = createElementWithClass('div', 'new-task-button');
-  projectAddTaskButton.innerText = "+ add task";
-  projectAddTaskButton.addEventListener('click', createNewTask);
+  let button = createElementWithClass('div', buttonObject["buttonClass"]);
+  button.innerText = buttonObject["buttonText"];
+  button.addEventListener('click', buttonEvent);
 
-  projectAddTaskDiv.append(projectAddTaskButton);
+  buttonContainer.append(button);
 
-  return projectAddTaskDiv;
+  return buttonContainer;
 }
 
-function buildTaskFinishedButton() {
-  let projectTaskFinishedDiv = createElementWithClass('li', 'details-complete');
-  projectTaskFinishedDiv.classList.add('button');
-  projectTaskFinishedDiv.innerText = "Mark as finished";
-  markCompleteListener(projectTaskFinishedDiv);
-
-  return projectTaskFinishedDiv;
+function deleteProject() {
+  console.log(this);
 }
 
-function buildDeleteTaskButton() {
-  let deleteTaskButtonDiv = createElementWithClass('li', 'details-delete');
-  deleteTaskButtonDiv.classList.add('button');
-  deleteTaskButtonDiv.innerText = "Delete task";
-  deleteTaskListener(deleteTaskButtonDiv);
+function buildTaskButton(buttonObject, varButtonEvent) {
+  let button = createElementWithClass('li', buttonObject["divClass"]);
+  button.classList.add('button');
+  button.innerText = buttonObject["buttonText"];
+  varButtonEvent(button);
 
-  return deleteTaskButtonDiv;
+  return button;
+
 }
 
 function buildItemsList() {
@@ -85,11 +84,11 @@ function buildTasksDescription(data) {
   let taskDescriptions = createElementWithClass('ul', 'project-task-details');
   taskDescriptions.classList.add('hidden');
 
-  let taskFinishedButton = buildTaskFinishedButton();
-  let deleteTaskButton = buildDeleteTaskButton();
+  let finishedButton = buildTaskButton(taskFinishedButton, markCompleteListener);
+  let deleteButton = buildTaskButton(deleteTaskButton, deleteTaskListener);
 
-  taskDescriptions.append(taskFinishedButton);
-  taskDescriptions.append(deleteTaskButton);
+  taskDescriptions.append(finishedButton);
+  taskDescriptions.append(deleteButton);
 
   for (let info in data) {
     if (info != "name" && info != "id" && info != "completed" ) {

@@ -14,24 +14,29 @@ $box-radius: 5px;
   -moz-box-shadow: 0px 3px 3px -3px rgba(153, 119, 195, 0.75);
 }
 
-@mixin green-button {
-  height: 100%;
-  background-color: $green;
-  border: 2px solid $purple;
-  cursor: pointer;
-  text-align: center;
+@mixin button-standards($border-color, $background-color) {
+  border: 2px solid $border-color;
   border-radius: $box-radius;
+  background-color: $background-color;
+  cursor: pointer;
+  height: 100%;
+  text-align: center;
+}
+
+@mixin project-button($border-color, $background-color) {
+  width: max-content;
+  padding: 6px 12px;
+  margin: auto;
   @include nav-shadow;
+  @include button-standards($border-color, $background-color);
 }
 
 @mixin task-button($border-color, $background-color) {
   width: max-content;
-  border: 2px solid $border-color;
-  border-radius: $box-radius;
-  background-color: $background-color;
   padding: 6px;
   display: inline-block;
   margin-right: 6px;
+  @include button-standards($border-color, $background-color);
 }
 
 html {
@@ -80,7 +85,8 @@ h5 {
       }
       &[type="submit"] {
         all: initial;
-        @include green-button;
+        @include nav-shadow;
+        @include button-standards($purple, $green);
         width: 2rem;
         border-left: none;
         margin-left: -2px;
@@ -201,10 +207,13 @@ h5 {
   .add-new-task {
     padding: 6px 12px;
     .new-task-button {
-      @include green-button;
-      width: max-content;
-      padding: 6px 12px;
-      margin: auto;
+      @include project-button($purple, $green);
+    }
+  }
+  .delete-project {
+    padding: 6px 12px;
+    .delete-project-button {
+      @include project-button($purple, $purple);
       margin-bottom: $page-padding;
     }
   }
