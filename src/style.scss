@@ -167,6 +167,9 @@ h5 {
       padding-right: 40px;
       input {
         font-size: 0.75rem;
+        border: 2px solid $green;
+        border-radius: $box-radius;
+        text-indent: 6px;
       }
       .task-name {
         grid-row: 1/2;
