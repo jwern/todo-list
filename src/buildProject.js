@@ -1,5 +1,5 @@
 import * as addTaskFormElements from './addTaskFormElements'
-import { addTaskToProjectData, removeTaskFromProject, updateTaskStatus } from './storeProject'
+import { addTaskToProjectData, removeTaskFromProject, updateTaskStatus, checkProjectCompletion, deleteProjectFromData } from './storeProject'
 import { addTaskButton, deleteProjectButton, taskFinishedButton, deleteTaskButton } from './projectButtons'
 
 function buildEmptyProject(project) {
@@ -43,15 +43,21 @@ function buildProjectButton(buttonObject, buttonEvent) {
 
   let button = createElementWithClass('div', buttonObject["buttonClass"]);
   button.innerText = buttonObject["buttonText"];
-  button.addEventListener('click', buttonEvent);
+  button.addEventListener('click', () => {
+    buttonEvent(button.closest('.project'));
+  });
 
   buttonContainer.append(button);
 
   return buttonContainer;
 }
 
-function deleteProject() {
-  console.log(this);
+function deleteProject(project) {
+  if (confirm("Really delete?")) {
+    let projectsContainer = document.querySelector('.projects-list');
+    projectsContainer.removeChild(project);
+    deleteProjectFromData(project);
+  }
 }
 
 function buildTaskButton(buttonObject, varButtonEvent) {
@@ -61,7 +67,6 @@ function buildTaskButton(buttonObject, varButtonEvent) {
   varButtonEvent(button);
 
   return button;
-
 }
 
 function buildItemsList() {
@@ -127,7 +132,11 @@ function markAsComplete() {
   if (task.classList.contains('checkedoff')) {
     this.innerText = "Finished!";
     updateTaskStatus(task, true);
-    // checkProjectCompletion(this);
+
+    let allTasksFinished = checkProjectCompletion(task);
+    if (allTasksFinished && confirm("All tasks complete!  Remove project?")) {
+      deleteProject(allTasksFinished);
+    };
   } else {
     this.innerText = "Mark as finished";
     updateTaskStatus(task, false);
@@ -147,8 +156,8 @@ function deleteTask() {
   }
 }
 
-function createNewTask() {
-  let project = this.closest('.project');
+function createNewTask(project) {
+  // let project = this.closest('.project');
   let projectTaskList = project.querySelector('.project-items');
 
   let taskForm = buildItemTaskForm();
