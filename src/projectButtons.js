@@ -7,7 +7,7 @@ const addTaskButton = {
 const deleteProjectButton = {
   divClass: "delete-project",
   buttonClass: "delete-project-button",
-  buttonText: "Remove Project",
+  buttonText: "- remove project",
 }
 
 const taskFinishedButton = {
