@@ -29,10 +29,10 @@ class Task {
 }
 
 class Project {
-  constructor(name) {
+  constructor(name, tasks = [], id = Project.assignId()) {
     this.name = name;
-    this.tasks = [];
-    this.id = Project.assignId();
+    this.tasks = tasks;
+    this.id = id;
   }
 
   addTask(taskObject) {
@@ -63,4 +63,4 @@ class Project {
 let projectsList = [];
 let projectId = 1;
 
-export { Project, projectsList }
+export { Project, projectsList, projectId }

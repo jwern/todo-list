@@ -1,12 +1,15 @@
-import { projectsList, Project } from './testData.js'
+import { projectsList, projectId } from './testData.js'
 
 function addProjectToData(project) {
   projectsList.push(project);
+  localStorage.setItem("projectsListLocal", JSON.stringify(projectsList));
+  localStorage.setItem('projectIdLocal', projectId);
 }
 
 function addTaskToProjectData(project, task) {
   let projectInList = findProjectInProjectsList(project);
   projectInList.addTask(task);
+  localStorage.setItem("projectsListLocal", JSON.stringify(projectsList));
 
   return projectInList.tasks.slice(-1)[0];
 }
@@ -17,6 +20,7 @@ function removeTaskFromProject(task) {
   let taskId = findTaskIDInDom(task);
   
   projectInList.removeTask(taskId);
+  localStorage.setItem("projectsListLocal", JSON.stringify(projectsList));
 }
 
 function updateTaskStatus(task, status) {
@@ -24,6 +28,7 @@ function updateTaskStatus(task, status) {
   let taskId = findTaskIDInDom(task);
 
   projectInList.updateTaskStatus(taskId, status);
+  localStorage.setItem("projectsListLocal", JSON.stringify(projectsList));
 }
 
 function checkProjectCompletion(task) {
@@ -40,7 +45,7 @@ function deleteProjectFromData(project) {
   let projectInList = findProjectInProjectsList(project);
   let projectIndex = projectsList.indexOf(projectInList);
   projectsList.splice(projectIndex, 1);
-  console.log(projectsList);
+  localStorage.setItem("projectsListLocal", JSON.stringify(projectsList));
 }
 
 function findProjectInProjectsList(project) {

@@ -22,6 +22,7 @@ function buildEmptyProject(project) {
 function addProjectToPage(project) {
   let projectsContainer = document.querySelector('.projects-list');
   projectsContainer.append(buildEmptyProject(project));
+  return projectsContainer;
 }
 
 function buildHeading(name) {
@@ -82,6 +83,10 @@ function buildItemsTask(data) {
   task.append(taskDescriptions);
   subMenuListener(task);
 
+  if (data.completed === true) {
+    task.classList.add('checkedoff');
+  }
+  
   return task;
 }
 
@@ -169,11 +174,16 @@ function createNewTask(project) {
       projectTaskList.removeChild(taskForm);
     } else {
       let taskData = Object.fromEntries(new FormData(event.target).entries());  
-      let taskObject = addTaskToProjectData(project, taskData);
-      addTaskToProject(projectTaskList, taskObject);
+      addNewTask(project, taskData);
       projectTaskList.removeChild(taskForm);
     }
   });
+}
+
+function addNewTask(project, taskData) {
+  let projectTaskList = project.querySelector('.project-items');
+  let taskObject = addTaskToProjectData(project, taskData);
+  addTaskToProject(projectTaskList, taskObject);
 }
 
 function addTaskToProject(taskList, newTask) {
@@ -223,4 +233,4 @@ function createElementWithClass(elementType, className) {
   return newElement;
 }
 
-export { buildEmptyProject, addProjectToPage, openSubMenu, markAsComplete }
+export { buildEmptyProject, addProjectToPage, openSubMenu, markAsComplete, addNewTask, addTaskToProject }
