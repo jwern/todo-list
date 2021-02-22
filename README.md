@@ -14,7 +14,8 @@ The DOM-focused direction mentioned in the Post-Mortem above turned out to be a 
 
 ## Screenshots
 
-TBA
+![Desktop view screenshot](/screenshots/todo_list_desktop_screenshot.png)
+![Mobile view screenshot](/screenshots/todo_list_mobile_screenshot.png)
 
 ## To Do
 
@@ -26,4 +27,4 @@ I'd like to make a few small stylistic changes, like adjusting the dropdown arro
 
 ## Technologies
 
-This to-do list was built with HTML, SCSS, and JavaScript. It uses npm for library management and webpack for bundling modules and compiling SCSS to CSS. While its dependencies include [FlexMasonry](https://flexmasonry.now.sh/), the current layout is CSS grid only and does not utilize the masonry layout. The color scheme was built in [Colorate](https://colorate.azurewebsites.net/). The heading fonts are [Signika Negative](https://fonts.google.com/specimen/Signika+Negative) and the body font is [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+Pro?preview.text_type=custom), both from [Google Fonts](https://fonts.google.com/).
+This to-do list was built with HTML, SCSS, and JavaScript. It uses npm for library management and webpack for bundling modules and compiling SCSS to CSS. While its dependencies include [FlexMasonry](https://flexmasonry.now.sh/), the current layout is CSS grid only and does not utilize the masonry layout. The color scheme was built in [Colorate](https://colorate.azurewebsites.net/). The heading fonts are [Signika Negative](https://fonts.google.com/specimen/Signika+Negative) and the body font is [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+Pro), both from [Google Fonts](https://fonts.google.com/).
