@@ -34,11 +34,11 @@ const taskNameSubmitAttributes = {
   value: 'Create Task',
 }
 
-// const taskCancelAttributes = {
-//   type: 'submit',
-//   class: 'task-form-cancel button',
-//   value: 'Cancel',
-// }
+const taskCancelAttributes = {
+  type: 'submit',
+  class: 'task-form-cancel button',
+  value: 'Cancel',
+}
 
 export { 
   taskNameAttributes, 
@@ -46,5 +46,5 @@ export {
   taskDescriptionAttributes, 
   taskPriorityAttributes, 
   taskNameSubmitAttributes,
-  // taskCancelAttributes
+  taskCancelAttributes
 }
