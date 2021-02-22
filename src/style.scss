@@ -206,6 +206,8 @@ h5 {
         @include task-button($green, $light-green);
         width: unset;
         cursor: pointer;
+        position: relative;
+        z-index: 30;
         &.task-form-cancel {
           background-color: $light-purple;
           border-color: $purple;
