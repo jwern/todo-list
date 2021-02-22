@@ -238,12 +238,17 @@ function createInputElement(attributes) {
 function createSelectElement(attributes) {
   let selectElement = document.createElement('select');
   for (let pair in attributes) {
-    if (pair !== "options") {
+    if (pair === "selected") {
+      let selectedOption = document.createElement('option');
+      selectedOption.setAttribute("selected", "selected");
+      selectedOption.setAttribute("value", " ");
+      selectedOption.innerText = attributes[pair];
+      selectElement.append(selectedOption);
+    } else if (pair !== "options") {
       selectElement.setAttribute(pair, attributes[pair]);
     } else {
       attributes[pair].forEach(option => {
         let optionElement = document.createElement('option');
-        optionElement.setAttribute("value", option);
         optionElement.setAttribute("name", option);
         optionElement.innerText = option;
         selectElement.append(optionElement);

@@ -86,14 +86,19 @@ function addDefaultProject() {
 
   let firstTask = { 
     name: "Try making a project with a task", 
-    due: "Today", 
-    description: "To make a new project, write your project's name in the box in the upper-right corner of the page and then hit the green '+' button.  To add a task to the project, click the '+ add task' button inside the project's box.", 
+    due: "2072-01-28", 
+    description: `
+    To make a new project, write your project's name in the box in the upper-right corner of the page and then hit the green '+' button.  
+    To add a task to the project, click the '+ add task' button inside the project's box.
+    `, 
     priority: "Medium", 
   };
   let secondTask = {
     name: "Mark off tasks when they're finished",
-    due: "Tomorrow",
-    description: "Once you've completed a task (like the one above!), check it off by selecting the task to reveal its details, then clicking the 'Mark as finished' button.",
+    due: "2072-01-29",
+    description: `
+    Once you've completed a task (like the one above!), check it off by selecting the task to reveal its details, 
+    then clicking the 'Mark as finished' button.`,
     priority: "Low",
   }
 

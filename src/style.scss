@@ -178,6 +178,14 @@ h5 {
         border-radius: $box-radius;
         text-indent: 6px;
       }
+      select {
+        background-color: transparent;
+        border: 2px solid $green;
+        border-radius: $box-radius;
+        // -webkit-appearance: none;
+        // -moz-appearance: none;
+        // appearance: none;
+      }
       .task-name {
         grid-row: 1/2;
         grid-column: 1/3;
