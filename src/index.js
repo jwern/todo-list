@@ -71,7 +71,7 @@ function loadStoredProjects(localProjects) {
   projectsList = JSON.parse(localProjects).map(function(obj) {
     return createNewProject(obj);
   });
-  console.log(projectsList);
+  
   let projectsDivs = document.querySelectorAll('.project');
  
   projectsList.forEach(project => {

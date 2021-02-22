@@ -100,11 +100,19 @@ function buildTasksDescription(data) {
   taskDescriptions.append(finishedButton);
   taskDescriptions.append(deleteButton);
 
+  const excludedData = ["name", "id", "completed"];
+
   for (let info in data) {
-    if (info != "name" && info != "id" && info != "completed" ) {
+    if (!excludedData.includes(info) ) {
       let infoLi = createElementWithClass('li', 'details');
       let infoCapitalized = info[0].toUpperCase().concat(info.slice(1));
-      infoLi.innerText = `${infoCapitalized}: ${data[info]}`;
+      if (info === "due") {
+        let year = data[info].slice(0, 4);
+        let date = data[info].slice(6);
+        infoLi.innerText = `${infoCapitalized}: ${date}-${year}`;
+      } else {
+        infoLi.innerText = `${infoCapitalized}: ${data[info]}`;
+      }
       taskDescriptions.append(infoLi);
     }
   }
