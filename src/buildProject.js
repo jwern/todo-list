@@ -107,9 +107,10 @@ function buildTasksDescription(data) {
       let infoLi = createElementWithClass('li', 'details');
       let infoCapitalized = info[0].toUpperCase().concat(info.slice(1));
       if (info === "due") {
-        let year = data[info].slice(0, 4);
+        let dash = data[info].slice(4, 5);
+        let year = dash + data[info].slice(0, 4);
         let date = data[info].slice(6);
-        infoLi.innerText = `${infoCapitalized}: ${date}-${year}`;
+        infoLi.innerText = `${infoCapitalized}: ${date}${year}`;
       } else {
         infoLi.innerText = `${infoCapitalized}: ${data[info]}`;
       }
@@ -205,7 +206,7 @@ function buildItemTaskForm() {
   let taskNameInput = createInputElement(addTaskFormElements.taskNameAttributes);
   let taskDueDate = createInputElement(addTaskFormElements.taskDueDateAttributes);
   let taskDescription = createInputElement(addTaskFormElements.taskDescriptionAttributes);
-  let taskPriority = createInputElement(addTaskFormElements.taskPriorityAttributes);
+  let taskPriority = createSelectElement(addTaskFormElements.taskPriorityAttributes);
   let taskNameSubmit = createInputElement(addTaskFormElements.taskNameSubmitAttributes);
   let taskCancel = createInputElement(addTaskFormElements.taskCancelAttributes);
   
@@ -234,6 +235,25 @@ function createInputElement(attributes) {
   return inputElement;
 }
 
+function createSelectElement(attributes) {
+  let selectElement = document.createElement('select');
+  for (let pair in attributes) {
+    if (pair !== "options") {
+      selectElement.setAttribute(pair, attributes[pair]);
+    } else {
+      attributes[pair].forEach(option => {
+        let optionElement = document.createElement('option');
+        optionElement.setAttribute("value", option);
+        optionElement.setAttribute("name", option);
+        optionElement.innerText = option;
+        selectElement.append(optionElement);
+      });
+    };
+  }
+
+  return selectElement;
+}
+
 function createElementWithClass(elementType, className) {
   let newElement = document.createElement(elementType);
   newElement.classList.add(className);
@@ -241,4 +261,4 @@ function createElementWithClass(elementType, className) {
   return newElement;
 }
 
-export { buildEmptyProject, addProjectToPage, openSubMenu, markAsComplete, addNewTask, addTaskToProject }
+export { addProjectToPage, addNewTask, addTaskToProject }

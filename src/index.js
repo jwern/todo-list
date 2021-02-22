@@ -1,10 +1,9 @@
 import './style.scss'
 import { addProjectToPage, addNewTask, addTaskToProject } from './buildProject'
 import { addProjectToData } from './storeProject'
-import { Project, projectsList, projectId } from './testData'
+import { Project, projectsList, projectId } from './projectClass'
 // Uncomment to enable masonry layout
 // FlexMasonry.init('.projects-list');
-
 
 
 const createProjectForm = document.getElementById('create-project-form');
@@ -28,7 +27,7 @@ function createNewProject(project) {
   return newProject;
 }
 
-function storageAvailable(type) {
+function storageAvailable(type) { // LocalStorage check taken from MDN docs
   var storage;
   try {
       storage = window[type];
@@ -53,7 +52,7 @@ function storageAvailable(type) {
   }
 }
 
-const loadProjectsList = (() => {
+const loadProjectsList = (() => { // IFFE - automatically run on page load
   if (storageAvailable('localStorage')) {
     let storedProjects = localStorage.getItem('projectsListLocal');
     if (storedProjects) {

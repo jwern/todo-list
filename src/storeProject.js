@@ -1,4 +1,4 @@
-import { projectsList, projectId } from './testData.js'
+import { projectsList, projectId } from './projectClass.js'
 
 function addProjectToData(project) {
   projectsList.push(project);
@@ -60,4 +60,11 @@ function findTaskIDInDom(task) {
   return task.getAttribute('data-id');
 }
 
-export { addProjectToData, addTaskToProjectData, removeTaskFromProject, updateTaskStatus, checkProjectCompletion, deleteProjectFromData }
+export { 
+  addProjectToData, 
+  addTaskToProjectData, 
+  removeTaskFromProject, 
+  updateTaskStatus, 
+  checkProjectCompletion, 
+  deleteProjectFromData,
+ }

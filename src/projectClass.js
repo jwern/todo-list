@@ -1,22 +1,3 @@
-// SAMPLE DATA:
-// const projectData = {
-//   name: "Try To Hook Up Data",
-//   tasks: [
-//     {
-//       name: "Testing Project",
-//       due: "3/1/21",
-//       description: "Here are some notes about this item, what if our notes were pretty long? Like we have a TON to say about this item. Way more than we should put on a single note, really.",
-//       priority: "High",
-//     },
-//     {
-//       name: "Use Test Data",
-//       due: "3/2/21",
-//       description: "Here are some notes about this item.",
-//       priority: "Low",
-//     },
-//   ],
-// }
-
 class Task {
   constructor(task, taskId) {
     this.name = task.name;

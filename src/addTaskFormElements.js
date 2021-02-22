@@ -21,11 +21,18 @@ const taskDescriptionAttributes = {
   placeholder: 'Task Description',
 }
 
+// const taskPriorityAttributes = {
+//   type: 'text',
+//   name: 'priority',
+//   class: 'task-form-input task-priority',
+//   placeholder: 'Task Priority',
+// }
+
 const taskPriorityAttributes = {
-  type: 'text',
   name: 'priority',
   class: 'task-form-input task-priority',
   placeholder: 'Task Priority',
+  options: ["High", "Medium", "Low"],
 }
 
 const taskNameSubmitAttributes = {
