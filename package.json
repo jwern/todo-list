@@ -19,6 +19,8 @@
     "webpack-cli": "^4.4.0"
   },
   "dependencies": {
-    "flexmasonry": "^0.2.3"
+    "flexmasonry": "^0.2.3",
+    "http-server": "^0.12.3",
+    "ngrok": "^3.4.0"
   }
 }

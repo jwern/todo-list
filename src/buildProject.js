@@ -171,21 +171,23 @@ function deleteTask() {
 }
 
 function createNewTask(project) {
-  // let project = this.closest('.project');
   let projectTaskList = project.querySelector('.project-items');
 
   let taskForm = buildItemTaskForm();
   projectTaskList.append(taskForm);
 
+  let taskCancelButton = taskForm.querySelector('.task-form-cancel');
+
+  taskCancelButton.addEventListener('click', () => {
+    projectTaskList.removeChild(taskForm);
+  });
+
   taskForm.addEventListener('submit', event => {
     event.preventDefault();
-    if (event.submitter.value === "Cancel") {
-      projectTaskList.removeChild(taskForm);
-    } else {
-      let taskData = Object.fromEntries(new FormData(event.target).entries());  
-      addNewTask(project, taskData);
-      projectTaskList.removeChild(taskForm);
-    }
+    console.log(event);
+    let taskData = Object.fromEntries(new FormData(event.target).entries());  
+    addNewTask(project, taskData);
+    projectTaskList.removeChild(taskForm);
   });
 }
 

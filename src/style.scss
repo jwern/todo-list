@@ -87,9 +87,11 @@ h5 {
         all: initial;
         @include nav-shadow;
         @include button-standards($purple, $green);
+        height: 100%;
         width: 2rem;
         border-left: none;
         margin-left: -2px;
+        padding: 1px;
       }
     }
   }
@@ -123,11 +125,24 @@ h5 {
     margin: auto;
   }
   ul.project-items {
-    list-style: "🥚";
+    // list-style-type: none;
+    list-style: "\1F95A";
+    // list-style: "🥚";
     // list-style: "\129370";
+    @media screen and (max-width: 736px) {
+      padding-left: 0;
+    }
     li.project-task {
       padding: 6px 12px;
       cursor: pointer;
+      @media screen and (max-width: 736px) {
+        list-style: none;
+        &::before {
+          content: "\1F95A";
+          margin-left: -20px;
+          padding: 20px;
+        }
+      }
       .details-complete {
         @include task-button($green, $light-purple);
         color: $green;
@@ -138,7 +153,16 @@ h5 {
       }
       &.checkedoff {
         text-decoration: line-through;
-        list-style: "🐥";
+        @media screen and (max-width: 736px) {
+          list-style: none;
+          &::before {
+            content: "\1f425";
+            margin-left: -20px;
+            padding: 20px;
+          }
+        }
+        list-style: "\1f425";
+        // list-style: "🐥";
         // list-style: "\128037";
         .details-complete {
           color: $green;
@@ -163,15 +187,17 @@ h5 {
       }
     }
     .task-form {
-      max-width: 300px;
+      max-width: 90%;
       display: grid;
       grid-template-columns: 50% 50%;
       grid-template-rows: repeat(4, auto);
       grid-column-gap: 6px;
       grid-row-gap: 2px;
       padding: 6px 0;
-      padding-right: 40px;
       margin: auto;
+      @media screen and (min-width: 736px) {
+        padding-right: 40px;
+      }
       input {
         font-size: 0.75rem;
         border: 2px solid $green;
@@ -204,9 +230,13 @@ h5 {
       }
       .button {
         @include task-button($green, $light-green);
-        width: unset;
+        grid-row: 4/5;
+        grid-column: 1/2;
+        width: 100%;
+        text-align: center;
         cursor: pointer;
         &.task-form-cancel {
+          grid-column: 2/3;
           background-color: $light-purple;
           border-color: $purple;
         }

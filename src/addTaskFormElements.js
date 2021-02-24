@@ -7,7 +7,11 @@ const taskNameAttributes = {
 
 const taskDueDateAttributes = {
   type: 'text',
-  onfocus: "(this.type='date')", 
+  onfocus: "(this.type='date')",
+  // onselect: "(this.type='date')",
+  onmousedown: "(this.type='date')", // works if you tap twice
+  // ondblclick: "(this.type='date')",
+  // onmouseover: "(this.type='date')", // works on first tap, but hard to edit
   onblur: "(this.type='text')",
   name: 'due',
   class: 'task-form-input task-due',
@@ -35,7 +39,7 @@ const taskNameSubmitAttributes = {
 }
 
 const taskCancelAttributes = {
-  type: 'submit',
+  type: 'button',
   class: 'task-form-cancel button',
   value: 'Cancel',
 }
